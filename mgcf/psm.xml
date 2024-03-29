@@ -1,0 +1,119 @@
+<mujoco model="dvrk_psm">
+    <compiler angle="radian" meshdir="/home/kallrax/Robotics/MedicalRobotics/dvrk_ws/src/dvrk_psm/meshes/psm/" />
+    <size njmax="500" nconmax="100" />
+    <option gravity="0 0 0"/>
+    <asset>
+        <mesh name="psm_base" file="psm_base.stl" />
+        <mesh name="outer_yaw" file="outer_yaw.stl" />
+        <mesh name="outer_pitch_back" file="outer_pitch_back.stl" />
+        <mesh name="outer_pitch_front" file="outer_pitch_front.stl" />
+        <mesh name="outer_pitch_bottom" file="outer_pitch_bottom.stl" />
+        <mesh name="outer_pitch_top" file="outer_pitch_top.stl" />
+        <mesh name="outer_insertion" file="outer_insertion.stl" />
+        <mesh name="tool_main" file="tool_main.stl" />
+        <mesh name="tool_wrist_link" file="tool_wrist_link.stl" />
+        <mesh name="tool_wrist_shaft_link" file="tool_wrist_shaft_link.stl" />
+        <mesh name="tool_wrist_sca_link" file="tool_wrist_sca_link.stl" />
+        <mesh name="tool_wrist_sca_shaft_link" file="tool_wrist_sca_shaft_link.stl" />
+        <mesh name="tool_wrist_sca_link_2" file="tool_wrist_sca_link_2.stl" />
+    </asset>
+    <worldbody>
+        <!-- <site name="endeff" pos="-0.25 0 0.65" size="0.01"/> -->
+        <!-- <geom pos="-0.289 0.40788 0.42121" quat="-0.707105 -0.707108 -2.57841e-06 -2.5784e-06" type="mesh" contype="0" conaffinity="0" group="0" mesh="psm_base" /> -->
+        <geom pos="-0.289 0.40788 0.42121" quat="-0.707105 -0.707108 -2.57841e-06 -2.5784e-06" type="mesh" mesh="psm_base" />
+        <body name="PSM1_outer_yaw_link" pos="-0.25 0 0.5" quat="-0.5 0.5 0.500002 0.499998">
+            <inertial pos="0 0 0" mass="1" diaginertia="0.1 0.1 0.1" />
+            <joint name="outer_yaw" pos="0 0 0.6" axis="0 0 1" limited="true" range="-1.5707 1.5707" />
+            <geom pos="0.0125 0 0.5265" quat="-2.59734e-06 0.707105 0.707108 -2.59735e-06" type="mesh" contype="0" conaffinity="0" group="0" mesh="outer_yaw" />
+            <!-- <geom pos="0.0125 0 0.5265" quat="-2.59734e-06 0.707105 0.707108 -2.59735e-06" type="mesh" mesh="outer_yaw" /> -->
+            <body name="PSM1_outer_pitch_link" pos="0 0 0" quat="0.499998 -0.5 -0.5 -0.500002">
+                <inertial pos="0 0 0" mass="1" diaginertia="0.1 0.1 0.1" />
+                <joint name="outer_pitch" pos="0 0 0" axis="0 0 1" limited="true" range="-0.7854 0.7854" />
+            </body>
+            <body name="PSM1_outer_pitch_back_link" pos="0 0.0295 0.5185" quat="0.499998 -0.5 -0.5 -0.500002">
+                <inertial pos="0 0 0" mass="1" diaginertia="0.1 0.1 0.1" />
+                <joint name="outer_pitch_1" type="hinge" pos="0 0 0" axis="0 0 1" />
+                <geom quat="0.990814 0 0 -0.135229" type="mesh" contype="0" conaffinity="0" group="0" mesh="outer_pitch_back" />
+                <!-- <geom quat="0.990814 0 0 -0.135229" type="mesh" mesh="outer_pitch_back" /> -->
+                <body name="PSM1_outer_pitch_bottom_link" pos="0.04178 0.15007 -0.0137">
+                    <inertial pos="0 0 0" mass="1" diaginertia="0.1 0.1 0.1" />
+                    <joint name="outer_pitch_3" pos="0 0 0" axis="0 0 1" />
+                    <geom pos="0.009 0 0" quat="0.707105 0 -0.707108 0" type="mesh" contype="0" conaffinity="0" group="0" mesh="outer_pitch_bottom" />
+                    <geom pos="0.009 0 0" quat="0.707105 0 -0.707108 0" type="mesh" mesh="outer_pitch_bottom" />
+                    <body name="PSM1_outer_insertion_link" pos="-0.52 0 -0.0155">
+                        <inertial pos="0 0 0" mass="1" diaginertia="0.1 0.1 0.1" />
+                        <joint name="outer_pitch_5" pos="0 0 0" axis="0 0 1" />
+                        <!-- <geom pos="0.02528 0.429 0" quat="0.499998 0.500002 -0.5 0.5" type="mesh" contype="0" conaffinity="0" group="0" mesh="outer_insertion" /> -->
+                        <geom pos="0.02528 0.429 0" quat="0.499998 0.500002 -0.5 0.5" type="mesh" mesh="outer_insertion" />
+                        <body name="PSM1_tool_main_link" pos="-0.04 0.4318 0" quat="0.707105 0.707108 0 0">
+                            <inertial pos="0 0 0" mass="1" diaginertia="0.01 0.01 0.01" />
+                            <joint name="outer_insertion" pos="0 0 0" axis="0 0 1" type="slide" limited="true" range="0 0.24" />
+                            <!-- <geom pos="0 0 0.041" quat="0.707105 0 0 0.707108" type="mesh" contype="0" conaffinity="0" group="0" mesh="tool_main" /> -->
+                            <geom pos="0 0 0.041" quat="0.707105 0 0 0.707108" type="mesh" mesh="tool_main" />
+                            <body name="PSM1_tool_wrist_link" pos="0 0 0.4162">
+                                <inertial pos="0 0 0" mass="2" diaginertia="0.02 0.02 0.02" />
+                                <joint name="outer_roll" pos="0 0 0" axis="0 0 1" limited="true" range="-2.2689 2.2689" />
+                                <!-- <geom pos="0 0 -0.0091" quat="0.707105 0 0 0.707108" type="mesh" contype="0" conaffinity="0" group="0" mesh="tool_wrist_link" /> -->
+                                <geom pos="0 0 -0.0091" quat="0.707105 0 0 0.707108" type="mesh" mesh="tool_wrist_link" />
+                                <!-- <geom pos="0 0.00401 0" quat="0.707105 0.707108 0 0" type="mesh" contype="0" conaffinity="0" group="0" mesh="tool_wrist_shaft_link" /> -->
+                                <geom pos="0 0.00401 0" quat="0.707105 0.707108 0 0" type="mesh" mesh="tool_wrist_shaft_link" />
+                                <body name="PSM1_tool_wrist_sca_link" pos="0 0 0" quat="0.499998 -0.5 -0.5 -0.500002">
+                                    <inertial pos="0 0 0" mass="1" diaginertia="0.01 0.01 0.01" />
+                                    <joint name="outer_wrist_pitch" pos="0 0 0" axis="0 0 1" limited="true" range="-1.5707 1.5707" />
+                                    <geom pos="0.0051 0.0032 0" quat="-2.59734e-06 -2.59735e-06 0.707105 -0.707108" type="mesh" contype="0" conaffinity="0" group="0" mesh="tool_wrist_sca_link" />
+                                    <geom pos="0.0051 0.0032 0" quat="-2.59734e-06 -2.59735e-06 0.707105 -0.707108" type="mesh" mesh="tool_wrist_sca_link" />
+                                    <body name="PSM1_tool_wrist_sca_shaft_link" pos="0.0091 0 0" quat="0.499998 -0.5 -0.5 -0.500002">
+                                        <site name="endeff" pos="0 0 0" size="0.01"/>
+                                        <inertial pos="0 0 0" mass="1" diaginertia="0.01 0.01 0.01" />
+                                        <joint name="outer_wrist_yaw" pos="0 0 0" axis="0 0 1" limited="true" range="-1.3963 1.3963" />
+                                        <!-- <geom pos="0 -0.0002 -0.0025" type="mesh" contype="0" conaffinity="0" group="0" mesh="tool_wrist_sca_shaft_link" /> -->
+                                        <geom pos="0 -0.0002 -0.0025" type="mesh" mesh="tool_wrist_sca_shaft_link" />
+                                        <body name="PSM1_tool_wrist_sca_ee_link_0" pos="0 0 0">
+                                            <inertial pos="0 0 0" mass="1" diaginertia="0.01 0.01 0.01" />
+                                            <joint name="jaw" pos="0 0 0" axis="0 0 1" limited="true" range="0 1.5707" />
+                                            <geom size="5e-05 5e-06 5e-06" type="box" contype="0" conaffinity="0" group="0" />
+                                        </body>
+                                        <body name="PSM1_tool_wrist_sca_ee_link_1" pos="0 0 0">
+                                            <inertial pos="0 0 0" mass="1" diaginertia="0.01 0.01 0.01" />
+                                            <joint name="jaw_mimic_1" pos="0 0 0" axis="0 0 1" limited="true" range="-1.5707 1.5707" />
+                                            <!-- <geom type="mesh" contype="0" conaffinity="0" group="0" mesh="tool_wrist_sca_link_2" /> -->
+                                            <geom type="mesh" mesh="tool_wrist_sca_link_2" />
+                                        </body>
+                                        <body name="PSM1_tool_wrist_sca_ee_link_2" pos="0 0 0">
+                                            <inertial pos="0 0 0" mass="1" diaginertia="0.01 0.01 0.01" />
+                                            <joint name="jaw_mimic_2" pos="0 0 0" axis="0 0 1" limited="true" range="-1.5707 1.5707" />
+                                            <!-- <geom quat="-0.00500365 0 0.999987 0" type="mesh" contype="0" conaffinity="0" group="0" mesh="tool_wrist_sca_link_2" /> -->
+                                            <geom quat="-0.00500365 0 0.999987 0" type="mesh" mesh="tool_wrist_sca_link_2" />
+                                        </body>
+                                    </body>
+                                </body>
+                            </body>
+                        </body>
+                    </body>
+                </body>
+                <body name="PSM1_outer_pitch_top_link" pos="0.04209 0.18695 -0.02412">
+                    <inertial pos="0 0 0" mass="1" diaginertia="0.1 0.1 0.1" />
+                    <joint name="outer_pitch_4" pos="0 0 0" axis="0 0 1" />
+                    <geom pos="0.009 0 0" quat="0.707105 0 -0.707108 0" type="mesh" contype="0" conaffinity="0" group="0" mesh="outer_pitch_top" />
+                    <!-- <geom pos="0.009 0 0" quat="0.707105 0 -0.707108 0" type="mesh" mesh="outer_pitch_top" /> -->
+                </body>
+            </body>
+            <body name="PSM1_outer_pitch_front_link" pos="0 0.0295 0.4285" quat="0.499998 -0.5 -0.5 -0.500002">
+                <inertial pos="0 0 0" mass="1" diaginertia="0.1 0.1 0.1" /> 
+            
+                <joint name="outer_pitch_2" pos="0 0 0" axis="0 0 1"/>
+                <geom quat="0.990814 0 0 -0.135229" type="mesh" contype="0" conaffinity="0" group="0" mesh="outer_pitch_front" />
+                <!-- <geom quat="0.990814 0 0 -0.135229" type="mesh" mesh="outer_pitch_front" /> -->
+            </body>
+        </body>
+    </worldbody>
+    <equality>
+        <connect name="insertiton_top_link" active="true" body1="PSM1_outer_insertion_link" body2="PSM1_outer_pitch_top_link" anchor="0 0.04 -0.0"/>
+        <connect name="front_bottom_link" active="true" body1="PSM1_outer_pitch_front_link" body2="PSM1_outer_pitch_bottom_link" anchor="0.04178 0.15007 -0.0137"/>
+        <joint name="1" active="true" joint1="outer_pitch" joint2="outer_pitch_1" polycoef="0 1 0 0 0"/>
+        <joint name="2" active="true" joint1="outer_pitch" joint2="outer_pitch_2" polycoef="0 1 0 0 0"/>
+        <joint name="3" active="true" joint1="outer_pitch" joint2="outer_pitch_3" polycoef="0 -1 0 0 0"/>
+        <joint name="4" active="true" joint1="outer_pitch" joint2="outer_pitch_4" polycoef="0 -1 0 0 0"/>
+        <joint name="5" active="true" joint1="outer_pitch" joint2="outer_pitch_5" polycoef="0 1 0 0 0"/>
+    </equality>
+</mujoco>
